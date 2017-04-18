@@ -28,7 +28,7 @@ namespace ShopProject.Web.API
             {
                 var listpostCategory = _postCategoryService.GetAll();
                 var postCategoryVm = Mapper.Map<IEnumerable<PostCategory>,IEnumerable<PostCategoryViewModel>>(listpostCategory);
-                HttpResponseMessage response = request.CreateResponse(HttpStatusCode.OK, listpostCategory);
+                HttpResponseMessage response = request.CreateResponse(HttpStatusCode.OK, postCategoryVm);
                 return response;
             });
         }

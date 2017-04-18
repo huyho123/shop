@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace ShopProject.Data.Infrastructure
 {
-    public class RepositoryBase<T> : IRepository<T> where T : class
+    public abstract class RepositoryBase<T> : IRepository<T> where T : class
     {
         #region Properties
         private ShopDbContext dataContext;

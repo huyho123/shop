@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using ShopProject.Data.Infrastructure;
+﻿using ShopProject.Data.Infrastructure;
 using ShopProject.Data.Repositories;
 using ShopProject.Model.Models;
+using System.Collections.Generic;
 
 namespace ShopProject.Service
 {
@@ -29,12 +28,11 @@ namespace ShopProject.Service
     {
         private IProductCategoryRepository _ProductCategoryRepository;
         private IUnitOfWork _unitOfWork;
-        
+
         public ProductCategoryService(IProductCategoryRepository ProductCategoryRepository, IUnitOfWork unitOfWork)
         {
             this._ProductCategoryRepository = ProductCategoryRepository;
             this._unitOfWork = unitOfWork;
-          
         }
 
         public ProductCategory Add(ProductCategory ProductCategory)
@@ -58,7 +56,6 @@ namespace ShopProject.Service
                 return _ProductCategoryRepository.GetMulti(x => x.Name.Contains(keyword) || x.Description.Contains(keyword));
             else
                 return _ProductCategoryRepository.GetAll();
-
         }
 
         public IEnumerable<ProductCategory> GetAllByParentId(int parentId)
