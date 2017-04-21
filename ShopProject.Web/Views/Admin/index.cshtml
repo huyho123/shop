@@ -14,6 +14,7 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
+    <link href="~/assets/admin/libs/toastr/toastr.css" rel="stylesheet" />
     <link href="~/assets/admin/css/AdminLTE.min.css" rel="stylesheet" />
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
@@ -216,7 +217,7 @@
                 <ul class="sidebar-menu">
                     <li class="header">MAIN NAVIGATION</li>
                     <li class="treeview">
-                        <a href="#">
+                        <a ui-sref="admin">
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>                          
                         </a>                      
                     </li>
@@ -612,11 +613,20 @@
     <script src="~/assets/admin/libs/angular/angular.js"></script>
     <script src="~/assets/admin/libs/angular-ui-router/release/angular-ui-router.js"></script>
 
-    @* module,service,common.*@
+    <!-- Thu vien cho notification-->
+    <script src="~/assets/admin/libs/toastr/toastr.js"></script>
+
+    <!-- Thu vien cho load confirm hien thong bao khi delelte-->
+    <script src="~/assets/admin/libs/bootbox/bootbox.js"></script>
+    <script src="~/assets/admin/libs/ngBootbox/ngBootbox.js"></script>
+
+    @* sub module,service,common.*@
     <script src="~/app/shared/modules/shopproject.common.js"></script>
     <script src="~/app/shared/filters/statusFilter.js"></script>
     <script src="~/app/shared/services/apiHttpService.js"></script>
+    <script src="~/app/shared/services/notificationService.js"></script>
     <script src="~/app/shared/directives/pagerDirective.js"></script>
+    <script src="~/app/shared/services/commonService.js"></script>
     <script src="~/app/components/products/products.module.js"></script>
     <script src="~/app/components/product_categories/productCategories.module.js"></script>
 
@@ -624,6 +634,8 @@
     <script src="~/app/app.js"></script>
 
     @* controller.*@
+    <script src="~/app/components/product_categories/productCategoryEditController.js"></script>
+    <script src="~/app/components/product_categories/productCategoryAddController.js"></script>
     <script src="~/app/components/product_categories/productCategoryListController.js"></script>
     <script src="~/app/components/products/productListController.js"></script>
     <script src="~/app/components/products/productAddController.js"></script>

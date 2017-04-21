@@ -255,6 +255,10 @@
     <Content Include="app\components\products\productListView.html" />
     <Content Include="app\components\products\productEditController.js" />
     <Content Include="app\components\product_categories\productCategories.module.js" />
+    <Content Include="app\components\product_categories\productCategoryAddController.js" />
+    <Content Include="app\components\product_categories\productCategoryAddView.html" />
+    <Content Include="app\components\product_categories\productCategoryEditController.js" />
+    <Content Include="app\components\product_categories\productCategoryEditView.html" />
     <Content Include="app\components\product_categories\productCategoryListController.js" />
     <Content Include="app\components\product_categories\productCategoryListView.html" />
     <Content Include="app\shared\directives\pagerDirective.html" />
@@ -262,6 +266,8 @@
     <Content Include="app\shared\filters\statusFilter.js" />
     <Content Include="app\shared\modules\shopproject.common.js" />
     <Content Include="app\shared\services\apiHttpService.js" />
+    <Content Include="app\shared\services\commonService.js" />
+    <Content Include="app\shared\services\notificationService.js" />
     <Content Include="assets\admin\css\AdminLTE.css" />
     <Content Include="assets\admin\css\AdminLTE.min.css" />
     <Content Include="assets\admin\css\alt\AdminLTE-bootstrap-social.css" />
@@ -376,6 +382,8 @@
     <Content Include="assets\admin\libs\boostrap\js\tooltip.js" />
     <Content Include="assets\admin\libs\boostrap\js\transition.js" />
     <Content Include="assets\admin\libs\boostrap\package.js" />
+    <Content Include="assets\admin\libs\bootbox\.gitignore" />
+    <Content Include="assets\admin\libs\bootbox\bootbox.js" />
     <Content Include="assets\admin\libs\fastclick\lib\fastclick.js" />
     <Content Include="assets\admin\libs\jquery\AUTHORS.txt" />
     <Content Include="assets\admin\libs\jquery\dist\core.js" />
@@ -489,6 +497,18 @@
     <Content Include="assets\admin\libs\jquery\src\var\support.js" />
     <Content Include="assets\admin\libs\jquery\src\var\toString.js" />
     <Content Include="assets\admin\libs\jquery\src\wrap.js" />
+    <Content Include="assets\admin\libs\ngBootbox\dist\ngBootbox.js" />
+    <Content Include="assets\admin\libs\ngBootbox\dist\ngBootbox.min.js" />
+    <Content Include="assets\admin\libs\ngBootbox\examples\example-1\app.js" />
+    <Content Include="assets\admin\libs\ngBootbox\examples\example-1\custom-dialog.tpl.html" />
+    <Content Include="assets\admin\libs\ngBootbox\examples\example-1\index.html" />
+    <Content Include="assets\admin\libs\ngBootbox\examples\example-2\app.js" />
+    <Content Include="assets\admin\libs\ngBootbox\examples\example-2\index.html" />
+    <Content Include="assets\admin\libs\ngBootbox\examples\example-2\main.js" />
+    <Content Include="assets\admin\libs\ngBootbox\examples\example-2\require.js" />
+    <Content Include="assets\admin\libs\ngBootbox\examples\index.html" />
+    <Content Include="assets\admin\libs\ngBootbox\gulpfile.js" />
+    <Content Include="assets\admin\libs\ngBootbox\ngBootbox.js" />
     <Content Include="assets\admin\libs\slimScroll\examples\allow-page-scroll.html" />
     <Content Include="assets\admin\libs\slimScroll\examples\chaining.html" />
     <Content Include="assets\admin\libs\slimScroll\examples\disable-fade-out.html" />
@@ -509,6 +529,10 @@
     <Content Include="assets\admin\libs\slimScroll\examples\style.css" />
     <Content Include="assets\admin\libs\slimScroll\jquery.slimscroll.js" />
     <Content Include="assets\admin\libs\slimScroll\jquery.slimscroll.min.js" />
+    <Content Include="assets\admin\libs\toastr\toastr.css" />
+    <Content Include="assets\admin\libs\toastr\toastr.js" />
+    <Content Include="assets\admin\libs\toastr\toastr.min.css" />
+    <Content Include="assets\admin\libs\toastr\toastr.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -670,6 +694,27 @@
     <Content Include="assets\admin\libs\slimScroll\bower.json" />
     <Content Include="assets\admin\libs\slimScroll\package.json" />
     <Content Include="assets\admin\libs\slimScroll\README.md" />
+    <Content Include="assets\admin\libs\toastr\.bower.json" />
+    <Content Include="assets\admin\libs\toastr\bower.json" />
+    <Content Include="assets\admin\libs\toastr\LICENSE" />
+    <Content Include="assets\admin\libs\toastr\README.md" />
+    <Content Include="assets\admin\libs\toastr\toastr.js.map" />
+    <Content Include="assets\admin\libs\toastr\toastr.less" />
+    <Content Include="assets\admin\libs\toastr\toastr.scss" />
+    <Content Include="assets\admin\libs\bootbox\.bower.json" />
+    <Content Include="assets\admin\libs\bootbox\.jshintrc" />
+    <Content Include="assets\admin\libs\bootbox\.npmignore" />
+    <Content Include="assets\admin\libs\bootbox\.travis.yml" />
+    <Content Include="assets\admin\libs\bootbox\bower.json" />
+    <Content Include="assets\admin\libs\bootbox\CONTRIBUTING.md" />
+    <Content Include="assets\admin\libs\bootbox\LICENSE.md" />
+    <Content Include="assets\admin\libs\bootbox\package.json" />
+    <Content Include="assets\admin\libs\bootbox\README.md" />
+    <Content Include="assets\admin\libs\ngBootbox\.bower.json" />
+    <Content Include="assets\admin\libs\ngBootbox\bower.json" />
+    <Content Include="assets\admin\libs\ngBootbox\package.json" />
+    <Content Include="assets\admin\libs\ngBootbox\README.md" />
+    <Content Include="assets\admin\libs\ngBootbox\tsd.json" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
@@ -693,6 +738,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="assets\admin\libs\ngBootbox\typings\angularjs\angular.d.ts" />
+    <TypeScriptCompile Include="assets\admin\libs\ngBootbox\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="assets\admin\libs\ngBootbox\typings\tsd.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

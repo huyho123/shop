@@ -1,4 +1,4 @@
 ﻿
 (function () {
-    angular.module('shopproject.common',['ui.router']);
+    angular.module('shopproject.common', ['ui.router', 'ngBootbox']);
 })();

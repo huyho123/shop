@@ -56,5 +56,6 @@ namespace ShopProject.Web.Models
 
         public decimal OriginalPrice { set; get; }
         public virtual ProductCategoryViewModel ProductCategory { set; get; }
+        public virtual IEnumerable<ProductTagViewModel> ProductTags { set; get; }
     }
 }
