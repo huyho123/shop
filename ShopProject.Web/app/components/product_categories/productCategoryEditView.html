@@ -50,7 +50,26 @@
                                     <textarea name="desciption" class="form-control" placeholder="Desciption" ng-model="productCategory.Description"></textarea>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Image</label>
+                                <div class="col-sm-10">
+                                    <!--select button  show input type file-->
 
+                                   
+
+                                    <input type="file" id="files" name="file" onchange="angular.element(this).scope().imageUpload(event)" multiple />
+                                    
+                                    <span class="pip" id="pip">
+                                        <img class="imageThumb" ng-src="{{productCategory.Image}}" title="{{FileName}}"/>
+                                        <br />
+                                        <span class="remove" id="remove">
+                                            Remove image
+                                        </span>
+                                    </span>
+                                    
+                                   
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="inputPassword3" class="col-sm-2 control-label">Category</label>
                                 <div class="col-sm-10">
@@ -119,3 +138,42 @@
     </div>
 </section>
 <!-- /.content -->
+<!-- /.content -->
+<style type="text/css">
+    input[type="file"] {
+        display: block;
+    }
+
+    .imageThumb {
+        max-height: 75px;
+        border: 2px solid;
+        padding: 1px;
+        cursor: pointer;
+    }
+
+    .uploader {
+        clear: both;
+    }
+
+    .pip {
+        display: inline-block;
+        margin: 10px 10px 0 0;
+    }
+   .pip1 {
+        display: inline-block;
+        margin: 10px 10px 0 0;
+    }
+    .remove {
+        display: block;
+        background: #444;
+        border: 1px solid black;
+        color: white;
+        text-align: center;
+        cursor: pointer;
+    }
+
+        .remove:hover {
+            background: white;
+            color: black;
+        }
+</style>

@@ -1,4 +1,4 @@
-﻿ <!-- Content Header (Page header) -->
+﻿<!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
         ProductCategory Form
@@ -25,11 +25,10 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-
                     <!-- Su dung co che novalidate de khoi su dung co che validate mac dinh cua form -->
                     <!-- ng-submit se goi su kien submit toi button submit Save -->
 
-                    <form class="form-horizontal" novalidate name="frmAddProductCategory" role="form" ng-submit="AddProductCategory()">
+                    <form class="form-horizontal" novalidate name="frmAddProductCategory" role="form" ng-submit="AddProductCategory()" enctype="multipart/form-data" method="post">
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
@@ -48,10 +47,23 @@
                             <div class="form-group">
                                 <label for="inputPassword3" class="col-sm-2 control-label">Description</label>
                                 <div class="col-sm-10">
-                                    <textarea name="desciption" class="form-control" placeholder="Desciption" ng-model="productCategory.Description"></textarea>
+                                  
+                                    <textarea name="desciption" class="form-control" ui-tinymce="tinymceOptions" ng-model="productCategory.Description"></textarea>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Image</label>
+                                <div class="col-sm-10">
+                                    <!--select button  show input type file-->
 
+                                    <!--<span class="btn btn-primary btn-file">-->
+                                        
+                                        <!--Select--><input type="file" id="files" name="file" ng-model-instant onchange="angular.element(this).scope().imageUpload(event)" multiple />
+                        
+                                    <!--</span>-->    
+                                                                                            
+                                </div>                              
+                            </div>
                             <div class="form-group">
                                 <label for="inputPassword3" class="col-sm-2 control-label">Category</label>
                                 <div class="col-sm-10">
@@ -82,8 +94,8 @@
                                 <div class="col-sm-10">
                                     <textarea name="metadescription" class="form-control" placeholder="MetaDescription" ng-model="productCategory.MetaDescription"></textarea>
                                 </div>
-                            </div>                            
-                            
+                            </div>
+
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <div class="checkbox">
@@ -117,6 +129,37 @@
             <!-- /.box-footer-->
         </div>
         <!-- /.box -->
-        </div>
+    </div>
 </section>
 <!-- /.content -->
+<style type="text/css">
+    input[type="file"] {
+  display: block;
+}
+.imageThumb {
+  max-height: 75px;
+  border: 2px solid;
+  padding: 1px;
+  cursor: pointer;
+}
+
+.uploader{
+    clear:both;
+}
+.pip {
+  display: inline-block;
+  margin: 10px 10px 0 0;
+}
+.remove {
+  display: block;
+  background: #444;
+  border: 1px solid black;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+}
+.remove:hover {
+  background: white;
+  color: black;
+}
+</style>

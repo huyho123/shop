@@ -17,6 +17,13 @@ namespace ShopProject.Web.Mappings
                 cfg.CreateMap<Product, ProductViewModel>();
                 cfg.CreateMap<ProductTag, ProductTagViewModel>();
                 cfg.CreateMap<PostTag, PostTagViewModel>();
+                cfg.CreateMap<Footer, FooterViewModel>();
+                cfg.CreateMap<Slide, SlideViewModel>();
+                cfg.CreateMap<ContactDetail, ContactDetailViewModel>();
+                cfg.CreateMap<Feedback, FeedbackViewModel>();
+                cfg.CreateMap<ApplicationGroup, ApplicationGroupViewModel>();
+                cfg.CreateMap<ApplicationRole, ApplicationRoleViewModel>();
+                cfg.CreateMap<ApplicationUser, ApplicationUserViewModel>();
             });
         }
     }

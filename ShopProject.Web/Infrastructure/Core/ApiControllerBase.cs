@@ -36,12 +36,12 @@ namespace ShopProject.Web.Infrastructure.Core
                         Trace.WriteLine($"- Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"");
                     }
                 }
-                LogError(ex);
+                LogDbValidationError(ex);
                 response = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ex.InnerException.Message);
             }
             catch (DbUpdateException dbEx)
             {
-                LogError(dbEx);
+                LogDbUpdateError(dbEx);
                 response = requestMessage.CreateResponse(HttpStatusCode.BadRequest, dbEx.InnerException.Message);
             }
             catch (Exception ex)
@@ -52,7 +52,39 @@ namespace ShopProject.Web.Infrastructure.Core
             return response;
         }
 
+        private void LogDbUpdateError(DbUpdateException dbEx)
+        {
+            try
+            {
+                Error error = new Error();
+                error.CreatedDate = DateTime.Now;
+                error.Message = dbEx.Message;
+                error.StackTrace = dbEx.StackTrace;
+                _errorService.Create(error);
+                _errorService.Save();
+            }
+            catch
+            {
+            }
+        }
+
         private void LogError(Exception ex)
+        {
+            try
+            {
+                Error error = new Error();
+                error.CreatedDate = DateTime.Now;
+                error.Message = ex.Message;
+                error.StackTrace = ex.StackTrace;
+                _errorService.Create(error);
+                _errorService.Save();
+            }
+            catch
+            {
+            }
+        }
+
+        private void LogDbValidationError(DbEntityValidationException ex)
         {
             try
             {

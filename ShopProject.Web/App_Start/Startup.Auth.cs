@@ -6,7 +6,11 @@ using Owin;
 using System;
 using ShopProject.Data;
 using ShopProject.Model.Models;
-
+using Microsoft.Owin.Security.OAuth;
+using System.Threading.Tasks;
+using ShopProject.Web.Infrastructure.Core;
+using System.Security.Claims;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 [assembly: OwinStartup(typeof(ShopProject.Web.App_Start.Startup))]
 
@@ -22,13 +26,30 @@ namespace ShopProject.Web.App_Start
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 
-            // Enable the application to use a cookie to store information for the signed in user
-            // and to use a cookie to temporarily store information about a user logging in with a third party login provider
-            // Configure the sign in cookie
+            #region dang nhap bang token.      
+            app.CreatePerOwinContext<UserManager<ApplicationUser>>(CreateManager);
+
+            app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions
+            {
+                TokenEndpointPath = new PathString("/oauth/token"),
+                Provider = new AuthorizationServerProvider(),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
+                AllowInsecureHttp = true,
+
+            });
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+
+            #endregion
+
+            //#region dang nhap voi cookie
+
+            //// Enable the application to use a cookie to store information for the signed in user
+            //// and to use a cookie to temporarily store information about a user logging in with a third party login provider
+            //// Configure the sign in cookie
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Login"),
+                LoginPath = new PathString("/dang-nhap.html"),
                 Provider = new CookieAuthenticationProvider
                 {
                     // Enables the application to validate the security stamp when the user logs in.
@@ -40,13 +61,15 @@ namespace ShopProject.Web.App_Start
             });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
-            // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
-            app.UseTwoFactorSignInCookie(DefaultAuthenticationTypes.TwoFactorCookie, TimeSpan.FromMinutes(5));
+            //// Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
+            //app.UseTwoFactorSignInCookie(DefaultAuthenticationTypes.TwoFactorCookie, TimeSpan.FromMinutes(5));
 
-            // Enables the application to remember the second login verification factor such as phone or email.
-            // Once you check this option, your second step of verification during the login process will be remembered on the device where you logged in from.
-            // This is similar to the RememberMe option when you log in.
-            app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
+            //// Enables the application to remember the second login verification factor such as phone or email.
+            //// Once you check this option, your second step of verification during the login process will be remembered on the device where you logged in from.
+            //// This is similar to the RememberMe option when you log in.
+            //app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
+            //#endregion
+
 
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(
@@ -66,6 +89,57 @@ namespace ShopProject.Web.App_Start
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+        }
+        public class AuthorizationServerProvider : OAuthAuthorizationServerProvider
+        {
+            public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
+            {
+                context.Validated();
+            }
+            public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
+            {
+                var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin");
+
+                if (allowedOrigin == null) allowedOrigin = "*";
+
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
+
+                UserManager<ApplicationUser> userManager = context.OwinContext.GetUserManager<UserManager<ApplicationUser>>();
+                ApplicationUser user;
+                try
+                {
+                    user = await userManager.FindAsync(context.UserName, context.Password);
+                }
+                catch
+                {
+                    // Could not retrieve the user due to error.
+                    context.SetError("invalid_user","Không tìm thấy tài khoản.");
+                    context.Rejected();
+                    return;
+                }
+                if (user != null)
+                {
+
+                    ClaimsIdentity identity = await userManager.CreateIdentityAsync(
+                                   user,
+                                   DefaultAuthenticationTypes.ExternalBearer);
+                    context.Validated(identity);
+
+
+                }
+                else
+                {
+                    context.SetError("invalid_grant", "Tài khoản hoặc mật khẩu không đúng.");
+                    context.Rejected();
+                }
+            }
+        }
+
+        private static UserManager<ApplicationUser> CreateManager(IdentityFactoryOptions<UserManager<ApplicationUser>> options, IOwinContext context)
+        {
+            var userStore = new UserStore<ApplicationUser>(context.Get<ShopDbContext>());
+            var owinManager = new UserManager<ApplicationUser>(userStore);
+            return owinManager;
         }
     }
 }

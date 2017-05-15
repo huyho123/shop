@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -10,8 +11,10 @@ namespace ShopProject.Web.Models
     {
         public int ID { set; get; }
 
+        [Required]
         public string Name { set; get; }
 
+        [Required]
         public string Alias { set; get; }
 
         public int CategoryID { set; get; }
@@ -56,6 +59,6 @@ namespace ShopProject.Web.Models
 
         public decimal OriginalPrice { set; get; }
         public virtual ProductCategoryViewModel ProductCategory { set; get; }
-        public virtual IEnumerable<ProductTagViewModel> ProductTags { set; get; }
+       
     }
 }

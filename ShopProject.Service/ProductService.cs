@@ -4,6 +4,7 @@ using System.Linq;
 using ShopProject.Data.Infrastructure;
 using ShopProject.Data.Repositories;
 using ShopProject.Model.Models;
+using ShopProject.Common;
 
 namespace ShopProject.Service
 {
@@ -29,7 +30,7 @@ namespace ShopProject.Service
 
         IEnumerable<Product> GetListProduct(string keyword);
 
-        IEnumerable<Product> GetReatedProducts(int id, int top);
+        IEnumerable<Product> GetRelatedProducts(int id, int top);
 
         IEnumerable<string> GetListProductByName(string name);
 
@@ -57,57 +58,160 @@ namespace ShopProject.Service
         private IUnitOfWork _unitOfWork;
 
         public ProductService(IProductRepository productRepository, IProductTagRepository productTagRepository,
-            ITagRepository _tagRepository, IUnitOfWork unitOfWork)
+            ITagRepository tagRepository, IUnitOfWork unitOfWork)
         {
-            this._productRepository = productRepository;
-            this._productTagRepository = productTagRepository;
-            this._tagRepository = _tagRepository;
-            this._unitOfWork = unitOfWork;
+            _productRepository = productRepository;
+            _productTagRepository = productTagRepository;
+            _tagRepository = tagRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public Product Add(Product Product)
         {
-            throw new NotImplementedException();
+            var product = _productRepository.Add(Product);
+            _unitOfWork.Commit();
+
+            if (!String.IsNullOrEmpty(Product.Tags))
+            {
+                string[] tags = Product.Tags.Split(',');
+
+                for (var i = 0; i < tags.Length; i++)
+                {
+                    // tagID in database with data type string.
+                    var tagID = HelperMethods.ToUnsignString(tags[i]);
+
+                    // Check string tag not in database will create it.
+                    if (_tagRepository.Count(x => x.ID == tagID) == 0)
+                    {
+                        Tag tag = new Tag();
+                        tag.ID = tagID;
+                        tag.Name = tags[i];
+                        tag.Type = CommonConstants.ProductTag;
+                        _tagRepository.Add(tag);
+                    }
+
+                    ProductTag productTag = new ProductTag();
+                    productTag.ProductID = Product.ID;
+                    productTag.TagID = tagID;
+                    _productTagRepository.Add(productTag);
+                }
+            }
+            return product;
         }
 
         public void Update(Product Product)
         {
-            throw new NotImplementedException();
+            _productRepository.Update(Product);
+
+            if (!String.IsNullOrEmpty(Product.Tags))
+            {
+                string[] tags = Product.Tags.Split(',');
+
+                foreach (var item in tags)
+                {
+                    // tagID in database with data type string.
+                    var tagID = HelperMethods.ToUnsignString(item);
+
+                    // Check string tag not in database will create it.
+                    if (_tagRepository.Count(x => x.ID == tagID) == 0)
+                    {
+                        Tag tag = new Tag();
+                        tag.ID = tagID;
+                        tag.Name = item;
+                        tag.Type = CommonConstants.ProductTag;
+                        _tagRepository.Add(tag);
+                    }
+                    // Khi update giong nhu la add, phai xoa gia tri cu?, boi vi
+                    // ProductID la primaryKey k cho phep ProductID them moi giong no(vi se loi~ duplicate).
+                    // TagID k bi boi vi` no la string nhap vao`,da? co o buoc kiem tra trung hay k o tagreposirory.
+                    // neu k trung` se? tao sitrng id moi,neu trung se? k nhay? vao` ham if de them lan` nua~.
+                    _productTagRepository.DeleteMulti(x => x.ProductID == Product.ID);
+                    ProductTag productTag = new ProductTag();
+                    productTag.ProductID = Product.ID;
+                    productTag.TagID = tagID;
+                    _productTagRepository.Add(productTag);
+                }
+            }
         }
 
         public Product Delete(int id)
         {
-            throw new NotImplementedException();
+            return _productRepository.Delete(id);
         }
 
         public IEnumerable<Product> GetAll()
         {
-            throw new NotImplementedException();
+            return _productRepository.GetAll();
         }
 
         public IEnumerable<Product> GetAll(string keyword)
         {
-            throw new NotImplementedException();
+            if (!String.IsNullOrEmpty(keyword))
+                return _productRepository.GetMulti(x => x.Name.Contains(keyword) || x.Description.Contains(keyword));
+            else
+                return _productRepository.GetAll();
         }
 
         public IEnumerable<Product> GetLastest(int top)
         {
-            throw new NotImplementedException();
+            return _productRepository.GetMulti(x => x.Status).OrderByDescending(x => x.CreatedDate).Take(top);
+
         }
 
         public IEnumerable<Product> GetHotProduct(int top)
         {
-            throw new NotImplementedException();
+            return _productRepository.GetMulti(x => x.Status && x.HotFlag == true).OrderByDescending(x => x.CreatedDate).Take(top);
+
         }
 
         public IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize, string sort, out int totalRow)
         {
-            throw new NotImplementedException();
+            var query = _productRepository.GetMulti(x => x.Status && x.CategoryID == categoryId);
+
+            switch (sort)
+            {
+                case "popular":
+                    query = query.OrderByDescending(x => x.ViewCount);
+                    break;
+                case "discount":
+                    query = query.OrderByDescending(x => x.PromotionPrice.HasValue);
+                    break;
+                case "price":
+                    query = query.OrderBy(x => x.Price);
+                    break;
+                default:
+                    query = query.OrderByDescending(x => x.CreatedDate);
+                    break;
+            }
+
+            totalRow = query.Count();
+
+            return query.Skip((page - 1) * pageSize).Take(pageSize);
         }
 
         public IEnumerable<Product> Search(string keyword, int page, int pageSize, string sort, out int totalRow)
         {
-            throw new NotImplementedException();
+            var query = _productRepository.GetMulti(x => x.Status && x.Name.Contains(keyword));
+
+            switch (sort)
+            {
+                case "popular":
+                    query = query.OrderByDescending(x => x.ViewCount);
+                    break;
+                case "discount":
+                    query = query.OrderByDescending(x => x.PromotionPrice.HasValue);
+                    break;
+                case "price":
+                    query = query.OrderBy(x => x.Price);
+                    break;
+                default:
+                    query = query.OrderByDescending(x => x.CreatedDate);
+                    break;
+            }
+
+            totalRow = query.Count();
+
+            return query.Skip((page - 1) * pageSize).Take(pageSize);
         }
 
         public IEnumerable<Product> GetListProduct(string keyword)
@@ -115,49 +219,64 @@ namespace ShopProject.Service
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Product> GetReatedProducts(int id, int top)
+        public IEnumerable<Product> GetRelatedProducts(int id, int top)
         {
-            throw new NotImplementedException();
+            var product = _productRepository.GetSingleById(id);
+            return _productRepository.GetMulti(x => x.Status && x.ID != id && x.CategoryID == product.CategoryID).OrderByDescending(x => x.CreatedDate).Take(top);
+
         }
 
         public IEnumerable<string> GetListProductByName(string name)
         {
-            throw new NotImplementedException();
+            return _productRepository.GetMulti(x => x.Status && x.Name.Contains(name)).Select(y => y.Name);
         }
 
         public Product GetById(int id)
         {
-            throw new NotImplementedException();
+            return _productRepository.GetSingleById(id);
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            _unitOfWork.Commit();
         }
 
         public IEnumerable<Tag> GetListTagByProductId(int id)
         {
-            throw new NotImplementedException();
+            return _productTagRepository.GetMulti(x => x.ProductID == id, new string[] { "Tag" }).Select(y => y.Tag);
         }
 
         public Tag GetTag(string tagId)
         {
-            throw new NotImplementedException();
+            return _tagRepository.GetSingleByCondition(x => x.ID == tagId);
         }
 
         public void IncreaseView(int id)
         {
-            throw new NotImplementedException();
+            var product = _productRepository.GetSingleById(id);
+            if (product.ViewCount.HasValue)
+                product.ViewCount += 1;
+            else
+                product.ViewCount = 1;
+
+            _productRepository.Update(product);
+            _unitOfWork.Commit();
         }
 
-        public IEnumerable<Product> GetListProductByTag(string tagId, int page, int pagesize, out int totalRow)
+        public IEnumerable<Product> GetListProductByTag(string tagId, int page, int pageSize, out int totalRow)
         {
-            throw new NotImplementedException();
+            var model = _productRepository.GetListProductByTag(tagId, page, pageSize, out totalRow);
+            return model;
         }
 
+        // selling product
         public bool SellProduct(int productId, int quantity)
         {
-            throw new NotImplementedException();
+            var product = _productRepository.GetSingleById(productId);
+            if (product.Quantity < quantity)
+                return false;
+            product.Quantity -= quantity;
+            return true;
         }
     }
 }

@@ -1,0 +1,91 @@
+﻿@model IEnumerable<ShopProject.Web.Models.ProductCategoryViewModel>
+
+
+<div class="sub-cate">
+    <div class="top-nav rsidebar span_1_of_left">
+        <h3 class="cate">DANH MỤC SẢN PHẨM</h3>
+        <ul class="menu">
+            @foreach (var productCategories in Model.Where(x => x.ParentID == null))
+            {
+                var url = "/" + productCategories.Alias + ".pc-" + productCategories.ID + ".html";
+                var childCategories = Model.Where(x => x.ParentID == productCategories.ID);
+                <li>
+                    @if (childCategories.Count() > 0)
+                    {
+                        <a href="@url">
+                            @productCategories.Name
+                            <img class="arrow-img" src="~/assets/client/images/arrow1.png" alt="" />
+                        </a>
+                        <ul class="cute">
+                            @foreach (var childCategory in childCategories)
+                            {
+                                var childUrl = "/" + childCategory.Alias + ".pc-" + childCategory.ID + ".html";
+                                <li class="subitem1">
+                                    <a href="@childUrl">@childCategory.Name </a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="kid-menu">
+                            <li>
+                                <a href="@url">@productCategories.Name</a>
+                            </li>
+                        </ul>
+                    }
+
+                </li>
+            }
+        </ul>
+    </div>
+
+    <!--initiate accordion-->
+
+    <div class="top-nav rsidebar span_1_of_left" style="margin:2em 0 0 0">
+        <a href="#"><h4 class="cate" style="padding-left:5%">SẢN PHẨM SHOP ĐỀ CỬ</h4></a>
+
+    </div>
+
+        <div class="chain-grid menu-chain">
+            <a href="single.html"><img class="img-responsive chain" src="~/assets/client/images/wat.jpg" alt="" /></a>
+            <div class="grid-chain-bottom chain-watch">
+                <span class="actual dolor-left-grid">300$</span>
+                <span class="reducedfrom">500$</span>
+                <h6><a href="single.html">Lorem ipsum dolor</a></h6>
+            </div>
+        </div>
+        <div class="chain-grid menu-chain">
+            <a href="single.html"><img class="img-responsive chain" src="~/assets/client/images/wat.jpg" alt="" /></a>
+            <div class="grid-chain-bottom chain-watch">
+                <span class="actual dolor-left-grid">300$</span>
+                <span class="reducedfrom">500$</span>
+                <h6><a href="single.html">Lorem ipsum dolor</a></h6>
+            </div>
+        </div>
+        <div class="chain-grid menu-chain">
+            <a href="single.html"><img class="img-responsive chain" src="~/assets/client/images/wat.jpg" alt="" /></a>
+            <div class="grid-chain-bottom chain-watch">
+                <span class="actual dolor-left-grid">300$</span>
+                <span class="reducedfrom">500$</span>
+                <h6><a href="single.html">Lorem ipsum dolor</a></h6>
+            </div>
+        </div>
+        <div class="chain-grid menu-chain">
+            <a href="single.html"><img class="img-responsive chain" src="~/assets/client/images/wat.jpg" alt="" /></a>
+            <div class="grid-chain-bottom chain-watch">
+                <span class="actual dolor-left-grid">300$</span>
+                <span class="reducedfrom">500$</span>
+                <h6><a href="single.html">Lorem ipsum dolor</a></h6>
+            </div>
+        </div>
+        <div class="chain-grid menu-chain">
+            <a href="single.html"><img class="img-responsive chain" src="~/assets/client/images/wat.jpg" alt="" /></a>
+            <div class="grid-chain-bottom chain-watch">
+                <span class="actual dolor-left-grid">300$</span>
+                <span class="reducedfrom">500$</span>
+                <h6><a href="single.html">Lorem ipsum dolor</a></h6>
+            </div>
+        </div>
+
+    </div>

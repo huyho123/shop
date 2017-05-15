@@ -63,5 +63,13 @@ namespace ShopProject.Web.API
             return request.CreateResponse(HttpStatusCode.OK, result);
         }
 
+        [HttpPost]
+        [Route("logout")]
+        public HttpResponseMessage Logout(HttpRequestMessage request)
+        {
+            var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
+            authenticationManager.SignOut();
+            return request.CreateResponse(HttpStatusCode.OK, new { success = true });
+        }
     }
 }

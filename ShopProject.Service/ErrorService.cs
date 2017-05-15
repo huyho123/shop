@@ -16,21 +16,21 @@ namespace ShopProject.Service
     }
     public class ErrorService : IErrorService
     {
-        IErrorRepository _errorRepository;
-        IUnitOfWork _unitOfWork;
+        IErrorRepository errorRepository;
+        IUnitOfWork unitOfWork;
         public ErrorService(IErrorRepository errorRepository,IUnitOfWork unitOfWork)
         {
-            this._errorRepository = errorRepository;
-            this._unitOfWork = unitOfWork;
+            this.errorRepository = errorRepository;
+            this.unitOfWork = unitOfWork;
         }
         public Error Create(Error error)
         {
-            return _errorRepository.Add(error);
+            return errorRepository.Add(error);
         }
 
         public void Save()
         {
-            _unitOfWork.Commit();
+            unitOfWork.Commit();
         }
     }
 }

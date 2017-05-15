@@ -72,8 +72,40 @@
     <Compile Include="Migrations\201704111656246_Intergrate-ApsNetIdentity.Designer.cs">
       <DependentUpon>201704111656246_Intergrate-ApsNetIdentity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705011908410_AddGroupUser.cs" />
+    <Compile Include="Migrations\201705011908410_AddGroupUser.Designer.cs">
+      <DependentUpon>201705011908410_AddGroupUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705012043297_change.cs" />
+    <Compile Include="Migrations\201705012043297_change.Designer.cs">
+      <DependentUpon>201705012043297_change.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705012055452_refresh.cs" />
+    <Compile Include="Migrations\201705012055452_refresh.Designer.cs">
+      <DependentUpon>201705012055452_refresh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705012100240_changeAgain.cs" />
+    <Compile Include="Migrations\201705012100240_changeAgain.Designer.cs">
+      <DependentUpon>201705012100240_changeAgain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705101307526_AddCustomerID.cs" />
+    <Compile Include="Migrations\201705101307526_AddCustomerID.Designer.cs">
+      <DependentUpon>201705101307526_AddCustomerID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705120946445_AddGroupUserAgain.cs" />
+    <Compile Include="Migrations\201705120946445_AddGroupUserAgain.Designer.cs">
+      <DependentUpon>201705120946445_AddGroupUserAgain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705142252558_RevenuesStatisticSP.cs" />
+    <Compile Include="Migrations\201705142252558_RevenuesStatisticSP.Designer.cs">
+      <DependentUpon>201705142252558_RevenuesStatisticSP.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ApplicationGroupRepository.cs" />
+    <Compile Include="Repositories\ApplicationRoleGroupRepository.cs" />
+    <Compile Include="Repositories\ApplicationRoleRepository.cs" />
+    <Compile Include="Repositories\ApplicationUserGroupRepository.cs" />
     <Compile Include="Repositories\ContactDetailRepository.cs" />
     <Compile Include="Repositories\ErrorRepository.cs" />
     <Compile Include="Repositories\FeedbackRepository.cs" />
@@ -81,6 +113,7 @@
     <Compile Include="Repositories\MenuGroupRepository.cs" />
     <Compile Include="Repositories\MenuRepository.cs" />
     <Compile Include="Repositories\OrderDetailRepository.cs" />
+    <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\PageRepository.cs" />
     <Compile Include="Repositories\PostCategoryRepository.cs" />
     <Compile Include="Repositories\PostRepository.cs" />
@@ -116,6 +149,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704111656246_Intergrate-ApsNetIdentity.resx">
       <DependentUpon>201704111656246_Intergrate-ApsNetIdentity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705011908410_AddGroupUser.resx">
+      <DependentUpon>201705011908410_AddGroupUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705012043297_change.resx">
+      <DependentUpon>201705012043297_change.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705012055452_refresh.resx">
+      <DependentUpon>201705012055452_refresh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705012100240_changeAgain.resx">
+      <DependentUpon>201705012100240_changeAgain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705101307526_AddCustomerID.resx">
+      <DependentUpon>201705101307526_AddCustomerID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705120946445_AddGroupUserAgain.resx">
+      <DependentUpon>201705120946445_AddGroupUserAgain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705142252558_RevenuesStatisticSP.resx">
+      <DependentUpon>201705142252558_RevenuesStatisticSP.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

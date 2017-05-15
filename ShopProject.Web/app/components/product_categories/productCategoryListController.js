@@ -16,12 +16,15 @@
 
         $scope.checkAll = checkAll;
 
+        $scope.noImage = 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQaabiNfTYwW1dTbTKO9QkyJQ4r0CjMcYS3GkToadxCVr2I9ATt';
+        $scope.lstProductCategories.Image = null;
         // ham xoa nhieu san pham
         function DeleteMulti() {
             $ngBootbox.confirm('Are you sure delete?').then(function () {
                 var lstItem = [];
                 // lay ra list id cua product voi lstItem = [5,6] sau do
                 // su dung JSON.stringifly de convert toi kieu string va truyen vao params
+
                 $.each($scope.selected, function (i, item) {
                     lstItem.push(item.ID);
                 });
@@ -39,6 +42,7 @@
                     notificationService.displaySuccess(result.data + ' record was delete success');
                     //xoa xong goi lai ham search de get lai san pham
                     search();
+                    
                 }, function (error) {
                     notificationService.displayError('Delete not success');
                 })
@@ -96,6 +100,7 @@
         // ham tim kiem goi lai ham getProductCategories();,boi vi ben trong co params keyword.
         function search() {
             GetProductCategories();
+            $scope.selectAll = false;
         }
 
         // ham lay san pham
@@ -110,9 +115,9 @@
                 }
             }
             apiHttpService.get('api/productcategory/getall', config, function (result) {
-                //if (result.data.TotalCount == 0) {
-                //    notificationService.displayWarning('Data not found for searched.');
-                //}
+                if (result.data.TotalCount == 0) {
+                    console.log('No data for productcategory');
+                }
                 $scope.lstProductCategories = result.data.Items;
                 $scope.page = result.data.Page,
                 $scope.pagesCount = result.data.TotalPages,

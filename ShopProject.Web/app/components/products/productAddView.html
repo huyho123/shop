@@ -1,1 +1,231 @@
-﻿<h1>this is product add view.</h1>
+﻿<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Product Form
+        <small>it all starts here</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="admin"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a ui-sref="products">List product</a></li>
+        <li class="active">Create</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="box">
+        <div class="box-body">
+            <div class="col-md-12">
+                <!-- Horizontal Form -->
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Product Form ADD</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <!-- Su dung co che novalidate de khoi su dung co che validate mac dinh cua form -->
+                    <!-- ng-submit se goi su kien submit toi button submit Save -->
+
+                    <form class="form-horizontal" novalidate name="frmAddProduct" role="form" ng-submit="AddProduct()" ng-keypress="keyPressed($event)">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="name" class="form-control" placeholder="Name" ng-model="product.Name" ng-change="GetSeoTitle()">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">SEO</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="alias" autocomplete="off" class="form-control" placeholder="SEO" ng-model="product.Alias">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Description</label>
+                                <div class="col-sm-10">
+
+                                    <textarea name="desciption" class="form-control" placeholder="Desciption" ng-model="product.Description"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Content</label>
+                                <div class="col-sm-10">
+
+                                    <textarea name="content" class="form-control" ui-tinymce="tinymceOptions" ng-model="product.Content"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Image</label>
+                                <div class="col-sm-10">
+                                    <!--select button  show input type file-->
+                                    <!--<span class="btn btn-primary btn-file">-->
+                                    <!--Select--><input type="file" id="files" name="file" ng-model-instant onchange="angular.element(this).scope().imageUpload(event)" multiple />
+
+                                    <!--</span>-->
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Category</label>
+                                <div class="col-sm-10">
+                                    <select name="parentId" class="form-control" ng-model="product.CategoryID" ng-options="option.ID as option.Name for option in ProductCategory">
+                                        <option value="">--Category--</option>
+                                    </select>
+                                    <!--<ui-select ng-model="product.CategoryID" name="parentId" theme="bootstrap" style="min-width: 300px;" title="Chọn danh mục">
+                                        <ui-select-match placeholder="Vui lòng chọn danh mục">{{$select.selected.Name}}</ui-select-match>
+                                        <ui-select-choices repeat="item.ID as item in productCategory | filter: $select.search">
+                                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                            <small>
+                                                Tên danh mục: {{item.Name}}
+                                            </small>
+                                        </ui-select-choices>
+                                    </ui-select>-->
+                                    <input type="hidden" name="parentId" ng-model="product.CategoryID" />
+                                </div>
+                            </div>
+                         
+
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">OriginalPriceInput</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="originalPrice" ng-model="product.OriginalPrice" ui-number-mask="0"> VNĐ                                 
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Price</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="price" class="form-control" placeholder="price" ng-model="product.Price" ui-number-mask="0">VNĐ
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">DiscountPrice</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="promotionprice" class="form-control" placeholder="price" ng-model="product.PromotionPrice" ui-number-mask="0">VNĐ
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">Quantity</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" name="quantity" ng-model="product.Quantity">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Warranty</label>
+                                <div class="col-sm-10">
+                                    <input type="number" name="warranty" class="form-control" placeholder="Warranty" ng-model="product.Warranty">(month)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">MetaKeyword</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="metakeyword" class="form-control" placeholder="keyword" ng-model="product.MetaKeyword">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">MetaDescription</label>
+
+                                <div class="col-sm-10">
+                                    <textarea name="metadescription" class="form-control" placeholder="MetaDescription" ng-model="product.MetaDescription"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">Tags</label>
+                                <div class="col-sm-10">
+                                    <intput type="text" name="tags" class="form-control" ng-model="product.Tags"></intput>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" ng-model="product.Status" ng-checked="product.Status"> Active
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" ng-model="product.HotFlag" ng-checked="product.HotFlag"> Hotproduct
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" ng-model="product.HomeFlag" ng-checked="product.HomeFlag"> Show product on home page
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <button class="btn btn-default" ui-sref="products" type="button">Cancel</button>
+                            <button type="submit" class="btn btn-info pull-right" ng-disabled="frmAddProduct.$invalid" ng-keyup="event=$event">Save</button>
+                        </div>
+                        <!-- /.box-footer -->
+                    </form>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <!-- /.box-footer-->
+        </div>
+        <!-- /.box -->
+    </div>
+</section>
+<!-- /.content -->
+<style type="text/css">
+    input[type="file"] {
+        display: block;
+    }
+
+    .imageThumb {
+        max-height: 75px;
+        border: 2px solid;
+        padding: 1px;
+        cursor: pointer;
+    }
+
+    .uploader {
+        clear: both;
+    }
+
+    .pip {
+        display: inline-block;
+        margin: 10px 10px 0 0;
+    }
+
+    .remove {
+        display: block;
+        background: #444;
+        border: 1px solid black;
+        color: white;
+        text-align: center;
+        cursor: pointer;
+    }
+
+        .remove:hover {
+            background: white;
+            color: black;
+        }
+</style>

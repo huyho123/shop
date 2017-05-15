@@ -1,0 +1,441 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>
+        Big Shop - Thanh toán đơn hàng
+    </title>
+    <meta name="description" content="Billa Shop - Thanh to&#225;n đơn h&#224;ng" />
+    <link href='//hstatic.net/0/0/global/check_out.css?v=1.1' rel='stylesheet' type='text/css' media='all' />
+    <link href='//hstatic.net/453/1000103453/1000148301/check_out.css?v=27' rel='stylesheet' type='text/css' media='all' />
+    <script src='//hstatic.net/0/0/global/jquery.min.js' type='text/javascript'></script>
+    <script src='//hstatic.net/0/0/global/jquery.validate.js' type='text/javascript'></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=no">
+
+</head>
+
+<body class="step1">
+    <span class="fbtracker-checkout"></span>
+    <a href="/gio-hang.html"><h1><span class="btn-back">Quay về giỏ hàng</span>  Billa Shop</h1></a>
+
+    <div class="container clearfix">
+
+
+        <div class="col-4 step1">
+            <h2>Thông tin giao hàng</h2>
+
+
+            <div class="user-login"><a href="/account/register?urlredirect=checkout">Đăng ký tài khoản mua hàng</a> | <a href="/account/login?urlredirect=checkout">Đăng nhập</a></div>
+
+            <div class="line"></div>
+            <div class="form-info">
+
+                <label class="color-blue">Mua không cần tài khoản</label>
+
+
+                <form accept-charset="UTF-8" action="/checkout/create_order" class="new_order" id="forminfo" method="post">
+                    <input type="hidden" id="ab_number" name="ab_number" value="1009428176" />
+                    <input type="hidden" id="token" name="token" value="" />
+
+                    <div class="form-group">
+
+                    </div>
+
+                    <div class="form-group">
+                        <input placeholder="Họ và tên" class="formcontrol" id="billing_address_full_name" name="billing_address[full_name]" size="30" type="text" value="" />
+                        <p>Họ và tên</p>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <input placeholder="Số điện thoại" maxlength="11" id="billing_address_phone" class="formcontrol" name="billing_address[phone]" size="30" title="Nhập số điện thoại" pattern="^\d{8,11}" type="tel" value="" required />
+                        <p>Số điện thoại</p>
+                    </div>
+
+
+                    <div class="form-group">
+                        <input placeholder="Email" id="order_email" name="checkout_user[email]" class="formcontrol" size="30" type="email" value="" />
+                        <p>Email</p>
+                    </div>
+
+
+                    <div class="form-group">
+                        <input placeholder="Địa chỉ" id="billing_address_address1" class="formcontrol" name="billing_address[address1]" size="30" type="text" value="" />
+                        <p>Địa chỉ</p>
+                    </div>
+
+                    <input name="billing_address[zip]" type="hidden" value="70000" />
+                    <input name="billing_address[country_id]" type="hidden" value="241" />
+                    <input name="billing_address[address2]" type="hidden" value="" />
+                    <input name="is_show_shipping_address" type="hidden" value="true" />
+                    <input type="checkbox" style="display:none" name="billing_address[billing_is_shipping]" value="true" checked="checked" id="shipping-toggle" tabindex="12" />
+
+                    <div class="form-group ctrl-city">
+                        <div class='custom-dropdown'>
+                            <select id="billing_address_province" name="billing_address[province_id]" class="formcontrol" required>
+                                <option value="null" selected>Vui lòng chọn tỉnh/thành phố.</option>
+
+
+
+                                <option value="50" selected="selected">Hồ Chí Minh</option>
+
+
+
+                                <option value="1">Hà Nội</option>
+
+
+
+                                <option value="32">Đà Nẵng</option>
+
+
+
+                                <option value="57">An Giang</option>
+
+
+
+                                <option value="49">Bà Rịa - Vũng Tàu</option>
+
+
+
+                                <option value="62">Bạc Liêu</option>
+
+
+
+                                <option value="15">Bắc Giang</option>
+
+
+
+                                <option value="4">Bắc Kạn</option>
+
+
+
+                                <option value="18">Bắc Ninh</option>
+
+
+
+                                <option value="53">Bến Tre</option>
+
+
+
+                                <option value="47">Bình Dương</option>
+
+
+
+                                <option value="35">Bình Định</option>
+
+
+
+                                <option value="45">Bình Phước</option>
+
+
+
+                                <option value="39">Bình Thuận</option>
+
+
+
+                                <option value="63">Cà Mau</option>
+
+
+
+                                <option value="3">Cao Bằng</option>
+
+
+
+                                <option value="59">Cần Thơ</option>
+
+
+
+                                <option value="42">Đắk Lắk</option>
+
+
+
+                                <option value="43">Đắk Nông</option>
+
+
+
+                                <option value="7">Điện Biên</option>
+
+
+
+                                <option value="48">Đồng Nai</option>
+
+
+
+                                <option value="56">Đồng Tháp</option>
+
+
+
+                                <option value="41">Gia Lai</option>
+
+
+
+                                <option value="2">Hà Giang</option>
+
+
+
+                                <option value="23">Hà Nam</option>
+
+
+
+                                <option value="28">Hà Tĩnh</option>
+
+
+
+                                <option value="19">Hải Dương</option>
+
+
+
+                                <option value="20">Hải Phòng</option>
+
+
+
+                                <option value="60">Hậu Giang</option>
+
+
+
+                                <option value="11">Hòa Bình</option>
+
+
+
+                                <option value="21">Hưng Yên</option>
+
+
+
+                                <option value="58">Kiên Giang</option>
+
+
+
+                                <option value="40">Kon Tum</option>
+
+
+
+                                <option value="37">Khánh Hòa</option>
+
+
+
+                                <option value="8">Lai Châu</option>
+
+
+
+                                <option value="13">Lạng Sơn</option>
+
+
+
+                                <option value="6">Lào Cai</option>
+
+
+
+                                <option value="44">Lâm Đồng</option>
+
+
+
+                                <option value="51">Long An</option>
+
+
+
+                                <option value="24">Nam Định</option>
+
+
+
+                                <option value="25">Ninh Bình</option>
+
+
+
+                                <option value="38">Ninh Thuận</option>
+
+
+
+                                <option value="27">Nghệ An</option>
+
+
+
+                                <option value="16">Phú Thọ</option>
+
+
+
+                                <option value="36">Phú Yên</option>
+
+
+
+                                <option value="29">Quảng Bình</option>
+
+
+
+                                <option value="33">Quảng Nam</option>
+
+
+
+                                <option value="14">Quảng Ninh</option>
+
+
+
+                                <option value="34">Quảng Ngãi</option>
+
+
+
+                                <option value="30">Quảng Trị</option>
+
+
+
+                                <option value="61">Sóc Trăng</option>
+
+
+
+                                <option value="9">Sơn La</option>
+
+
+
+                                <option value="46">Tây Ninh</option>
+
+
+
+                                <option value="52">Tiền Giang</option>
+
+
+
+                                <option value="5">Tuyên Quang</option>
+
+
+
+                                <option value="22">Thái Bình</option>
+
+
+
+                                <option value="12">Thái Nguyên</option>
+
+
+
+                                <option value="26">Thanh Hóa</option>
+
+
+
+                                <option value="31">Thừa Thiên Huế</option>
+
+
+
+                                <option value="54">Trà Vinh</option>
+
+
+
+                                <option value="55">Vĩnh Long</option>
+
+
+
+                                <option value="17">Vĩnh Phúc</option>
+
+
+
+                                <option value="10">Yên Bái</option>
+
+
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group ctrl-district" id="shipping_district_container">
+                        <div class='custom-dropdown'>
+                            <select id="shipping_district" name="shipping_district" class="formcontrol"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea id="billing_note" placeholder="Ghi chú đơn hàng" name="billing_address[note]" rows="3" class="formcontrol ordernote"></textarea>
+                        <p>Ghi chú đơn hàng</p>
+                    </div>
+                    <div class="error summary">
+                        (<span class="color-red ">*</span>)Vui lòng nhập đủ thông tin
+                    </div>
+                </form>
+            </div>
+            <div class="listerror">
+
+            </div>
+        </div>
+        <form accept-charset="UTF-8" id="purchase-form" method="post">
+            <input type="hidden" id="ab_number_fn" name="ab_number_fn" value="1009428176" />
+            <input type="hidden" id="token" name="token" value="" />
+            <input type="hidden" id="morecoupon" name="morecoupon" value="false" />
+            <input type="hidden" id="order_id" value="1009428176" />
+
+            <div class="col-4">
+                <!-- Vận chuyển & Thanh Toán -->
+                <div class="ctrl-shipping">
+                    <h3 class="h-shipping ">Vận chuyển</h3>
+                    <div class="form-group ">
+                        <div class='custom-dropdown'><select class="drop_shipping" name="shipping_rate"></select></div>
+                    </div>
+                </div>
+
+                <h3>Thanh toán</h3>
+                <div class="shiping-ajax">
+
+
+                    <label class="lb-method">
+                        <input class="input-method" type="radio" checked="checked" name="gateway" value="243628" />
+                        <span class="label-radio"> Thanh toán khi giao hàng (COD)</span>
+                    </label>
+                    <span class="desc"></span>
+
+
+
+                    <label class="lb-method">
+                        <input class="input-method" type="radio" name="gateway" value="243630" />
+                        <span class="label-radio"> Chuyển khoản qua ngân hàng</span>
+                    </label>
+                    <span class="desc"></span>
+
+
+                </div>
+
+
+            </div>
+            <div class="box-btn-checkout-first">
+                <button type="submit" class="btn-checkout btn-checkout-first">Đặt hàng</button>
+            </div>
+            <div class="col-4">
+                <div class="box-cart">
+                    <h2>Đơn hàng</h2>
+                    (<span>12</span> sản phẩm)
+                    <div class="cart-items">
+                        <div class="list_item cart-item">
+                            <span>10 x</span>
+                            <span> ÁO THUN CÓ CỔ - FROM BODY TC003</span>
+                            <span class="price">1,890,000₫</span>
+                            <p class="variant-title"></p>
+                        </div>
+                    </div>
+                    <div class="total-price">
+                        Tạm tính   <label> 2,248,000₫</label>
+                    </div>
+                    <div class="shiping-price">
+                        Phí vận chuyển   <label>0</label>
+                    </div>
+                    
+                    <div class="total-checkout">
+                        Tổng cộng <span> 2,248,000₫</span>
+                    </div>
+                </div>
+                <button type="submit" class="btn-checkout">Đặt hàng</button>
+
+            </div>
+        </form>
+    </div>
+
+    <div id="Loading">
+        <div id="Loading_1" class="Loading"></div>
+        <div id="Loading_2" class="Loading"></div>
+        <div id="Loading_3" class="Loading"></div>
+        <div id="Loading_4" class="Loading"></div>
+        <div id="Loading_5" class="Loading"></div>
+        <div id="Loading_6" class="Loading"></div>
+        <div id="Loading_7" class="Loading"></div>
+        <div id="Loading_8" class="Loading"></div>
+    </div>
+</body>
+</html>

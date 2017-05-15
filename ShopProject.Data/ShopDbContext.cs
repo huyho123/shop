@@ -35,6 +35,10 @@ namespace ShopProject.Data
         public DbSet<ContactDetail> ContactDetails { set; get; }
         public DbSet<Feedback> Feedbacks { set; get; }
 
+        public DbSet<ApplicationGroup> ApplicationGroups { set; get; }
+        public DbSet<ApplicationRole> ApplicationRoles { set; get; }
+        public DbSet<ApplicationRoleGroup> ApplicationRoleGroups { set; get; }
+        public DbSet<ApplicationUserGroup> ApplicationUserGroups { set; get; }
 
         public static ShopDbContext Create()
         {
